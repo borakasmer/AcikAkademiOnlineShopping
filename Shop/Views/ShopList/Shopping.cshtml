@@ -1,0 +1,65 @@
+﻿@model List<DAL.Model.Product>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Shopping</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+@using (Html.BeginForm("Buy", "ShopList", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Acik Akademi Online Alişveriş</h1>
+                <input type="submit" class="btn bg-success" value="Satın Alma İşlemini Tamamla" />
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="table-info">
+                        <th>
+                            Satın Al
+                        </th>
+                        <th>
+                            Ad
+                        </th>
+                        <th>
+                            Resim
+                        </th>
+                        <th>
+                            Fiyat
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                {
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="@product.id" name="@product.id" value="@product.id" />
+                            </td>
+                            <td>
+                                @product.Name
+                            </td>
+                            <td>
+                                <input type="image" src="~/Images/@product.Image" width="200" height="100" alt="@product.Name" />
+                            </td>
+                            <td>
+                                @(product.Price)$
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </body>
+}
+</html>
